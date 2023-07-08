@@ -40,7 +40,8 @@ public:
         if (*i == "L")  m_city=*(++i);
         if (*i == "O")  m_organ=*(++i);
         if (*i == "OU") m_unit=*(++i);
-        if (*i == "CN") m_email=*(++i);
+        if (*i == "CN") m_name=*(++i);
+        if (*i == "emailAddress") m_email=*(++i);
       }
     }
     return 0;
@@ -52,7 +53,8 @@ public:
   string m_city;   // /L=
   string m_organ; // /O=
   string m_unit;   // /OU=
-  string m_email;  // /CN=
+  string m_name;   // /CN=
+  string m_email;  // /emailAddress
 };
 
 
