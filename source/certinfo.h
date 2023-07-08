@@ -13,7 +13,7 @@ class CACertInfo
 {
 public:
   CACertInfo() {}
-  ~CACerInfo() {}
+  ~CACertInfo() {}
 
   vector<string> ParseElement(string el)
   {
@@ -76,7 +76,7 @@ public:
     m_certline.clear();
     m_certline.resize(bufferlen);
     
-    sprintf((char*)m_certine.c_str(),
+    sprintf((char*)m_certline.c_str(),
             "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s",
             nation.c_str(),
             state.c_str(),
