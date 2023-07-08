@@ -45,7 +45,10 @@ TLS 1.3서버와 클라이언트 사이에 신뢰 통신을 구축하기 위해�
    ```bash
    openssl req new -key rootkey.key -out root.csr -args “/C=South Korea/ST=Seoul/L=Seoul/O=CoreTrust, Inc./OU=eurycrypt.com/CN=paul/emailAddress=paul@coretrust.com”
    ```
-   
+   루트 인증서를 위한 키외 서명서를 만들었다면, 2개의 파일을 이용하여 루트 인증서를 생성한다.
+   ```bash
+   openssl X509
+   ```
    
 2. 
  
