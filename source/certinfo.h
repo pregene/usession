@@ -98,4 +98,4 @@ public:
   string m_email;  // /emailAddress
 };
 
-#END // __CORETRUST_CERTIFICATE_INFO__
+#end // __CORETRUST_CERTIFICATE_INFO__
