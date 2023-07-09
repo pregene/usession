@@ -16,7 +16,7 @@ TLS 1.3서버와 클라이언트 사이에 신뢰 통신을 구축하기 위해�
    
    명령어(linux)
    ```bash
-   openssl genrsa -aes256 -out rootkey.key 2048
+   openssl genrsa -aes256 -out root.key 2048
    ```
    ```bash
    -aes256 : 암호화 키를 암호화 할 알고리즘
@@ -43,11 +43,23 @@ TLS 1.3서버와 클라이언트 사이에 신뢰 통신을 구축하기 위해�
    
    명령어(Linux)
    ```bash
-   openssl req new -key rootkey.key -out root.csr -args “/C=South Korea/ST=Seoul/L=Seoul/O=CoreTrust, Inc./OU=eurycrypt.com/CN=paul/emailAddress=paul@coretrust.com”
+   openssl req new -key root.key -out root.csr -args “/C=South Korea/ST=Seoul/L=Seoul/O=CoreTrust, Inc./OU=eurycrypt.com/CN=paul/emailAddress=paul@coretrust.com”
    ```
+   ```bash
+   -key: 서명서를 암호화 할 키
+   -out : 생성할 서명(요청)서 파일
+   -args : 서명 정보
+   ```
+   생성시 암호를 묻게 되는데, 입력해주고 완료 한다. 이 암호를 기억하고 있어야 서버와 클라이언트 인증서를 생성 할 수 있다.
+   ```bash
+   A challenge password []: coretrust_root_password
+   An optional company name []: coretrust
+   
+   ```
+   
    루트 인증서를 위한 키외 서명서를 만들었다면, 2개의 파일을 이용하여 루트 인증서를 생성한다.
    ```bash
-   openssl X509
+   openssl x509 -req -days 99999 -extensions v3_ca -set_serial 103 -in root.csr -signkey root.key -out root.crt
    ```
    
 ### 2. 
