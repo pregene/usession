@@ -19,8 +19,8 @@ class CAIssuer
 public:
     CAIssuer() {}
     ~CAIssuer() {}
-    
-    virtual int MakeKEY(string filename, 
+
+    virtual int MakeKEY(string filename,
                 RSABIT bits);
     virtual int MakeCSR(string filename,
                 string args);
@@ -43,11 +43,11 @@ public:
         m_crt = filename;
         return CA_SUCCESS;
     }
-                
+
 private:
     string m_key;
     string m_csr;
-    string m_crt; 
+    string m_crt;
 
 };
 
@@ -64,15 +64,15 @@ public:
     {
         m_pCA=pCA;
         return CA_SUCCESS;
-    } 
-    virtual int MakeKEY(string filename, 
+    }
+    virtual int MakeKEY(string filename,
                 RSABIT bits);
     virtual int MakeCSR(string filename,
                 string args);
     virtual int MakeCRT(string filename);
-    
+
 private:
-    CAIssuer* m_pCA; 
+    CAIssuer* m_pCA;
 };
 
-#end // __CORETRUST_CERTIFICATE_ISSUER__
+#endif // __CORETRUST_CERTIFICATE_ISSUER__
