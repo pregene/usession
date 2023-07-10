@@ -13,12 +13,33 @@ using namespace std;
 
 namespace CTCERT
 {
+  /*!
+    @class Certificate Information 
+    @brief Subject 또는 Issuer의 CSR의 정보를 분석하거나 문자열 생성하는 클래스
+    @author paul@coretrust.com
+    @date 2023-07-10
+  */
   class CACertInfo
   {
   public:
+    /*!
+      @brief Subject 또는 Issuer의 CSR의 정보를 분석하거나 문자열 생성하는 클래스의 생성자
+      @author paul@coretrust.com
+      @date 2023-07-10
+    */
     CACertInfo() {}
+    /*!
+      @brief Subject 또는 Issuer의 CSR의 정보를 분석하거나 문자열 생성하는 클래스의 소멸자
+      @author paul@coretrust.com
+      @date 2023-07-10
+    */
     ~CACertInfo() {}
 
+    /*!
+      @brief Name=Value로 된 문자열을 분리하여 <vector>로 반환한다.
+      @author paul@coretrust.com
+      @date 2023-07-10
+    */
     vector<string> ParseElement(string el)
     {
       vector<string> arrs;
@@ -31,6 +52,11 @@ namespace CTCERT
       return arrs;
     }
 
+    /*!
+      @brief CSR 문자열을 '/'로 된 문자열을 분리한 후, NATION, STATE, LOCALITY, ORIGANIZATION, UNIT 등의 정보를 추출한다.
+      @author paul@coretrust.com
+      @date 2023-07-10
+    */
     int ParseString(string cert_line)
     {
       m_certline = cert_line;
@@ -55,6 +81,11 @@ namespace CTCERT
       }
       return 0;
     }
+    /*!
+      @brief CSR 문자열을 생성한다.
+      @author paul@coretrust.com
+      @date 2023-07-10
+    */
     string Make(string nation,
                 string state,
                 string city,
