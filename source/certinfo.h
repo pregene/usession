@@ -11,10 +11,13 @@
 
 using namespace std;
 
+#define CA_SUCCESS 0
+#define CA_FAIL -1
+
 namespace CTCERT
 {
   /*!
-    @class Certificate Information 
+    @class Certificate Information
     @brief Subject 또는 Issuer의 CSR의 정보를 분석하거나 문자열 생성하는 클래스
     @author paul@coretrust.com
     @date 2023-07-10

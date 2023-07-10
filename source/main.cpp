@@ -1,4 +1,5 @@
 #include "certinfo.h"
+#include "certmaker.h"
 
 using namespace CTCERT;
 
@@ -23,5 +24,8 @@ int main(int argc, char* argv[])
     printf("Common: %s\n",        info.m_name.c_str());
     printf("Email: %s\n",         info.m_email.c_str());
   }
+
+  CAIssuer issue;
+  issue.MakeKEY("root.key", CA_RSA_2048);
   return 0;
 }

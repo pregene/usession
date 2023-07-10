@@ -14,13 +14,15 @@ CFLAGS=-Wall -DBUILDNO_INFO=$(BNO) -DVERSION_INFO=\"$(VNO)\"
 
 LIBS=-L/usr/lib -lssl -lcrypto -lpthread
 EXEC=usession
-SOURCE=source/main.cpp
+SOURCE=source/main.cpp source/certmaker.cpp
 
 all:
 	$(CC) $(SOURCE) $(CFLAGS) $(LIBS) -o bin/$(EXEC)
+	gcc study/createkey.c $(CFLAGS) $(LIBS) -o bin/createkey
 
 # BUILD가 완료되었으므로, 다음 빌드을 위해 BUILD NUMBER를 1 증가한다..
 	@echo $$(($$(cat $(FILE)) + 1)) > $(FILE)
 
 clean:
 	rm -f bin/$(EXEC)
+	rm -f bin/createkey

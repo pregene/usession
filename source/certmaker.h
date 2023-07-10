@@ -14,65 +14,68 @@ typedef enum
     CA_RSA_4096 = 4096,
 } RSABIT;
 
-class CAIssuer
+namespace CTCERT
 {
-public:
-    CAIssuer() {}
-    ~CAIssuer() {}
+  class CAIssuer
+  {
+  public:
+      CAIssuer() {}
+      ~CAIssuer() {}
 
-    virtual int MakeKEY(string filename,
-                RSABIT bits);
-    virtual int MakeCSR(string filename,
-                string subj);
-    virtual int MakeCRT(string filename);
-    string GetKEY() {return m_key;}
-    string GetCSR() {return m_csr;}
-    string GetCRT() {return m_crt;}
-    int SetKEY(string filename)
-    {
-        m_key = filename;
-        return CA_SUCCESS;
-    }
-    int SetCSR(string filename)
-    {
-        m_csr = filename;
-        return CA_SUCCESS;
-    }
-    int SetCRT(string filename)
-    {
-        m_crt = filename;
-        return CA_SUCCESS;
-    }
+      virtual int MakeKEY(string filename,
+                  RSABIT bits);
+      virtual int MakeCSR(string filename,
+                  string subj);
+      virtual int MakeCRT(string filename);
+      string GetKEY() {return m_key;}
+      string GetCSR() {return m_csr;}
+      string GetCRT() {return m_crt;}
+      int SetKEY(string filename)
+      {
+          m_key = filename;
+          return CA_SUCCESS;
+      }
+      int SetCSR(string filename)
+      {
+          m_csr = filename;
+          return CA_SUCCESS;
+      }
+      int SetCRT(string filename)
+      {
+          m_crt = filename;
+          return CA_SUCCESS;
+      }
 
-private:
-    string m_key;
-    string m_csr;
-    string m_crt;
+  private:
+      string m_key;
+      string m_csr;
+      string m_crt;
 
-};
+  };
 
-class CACertificate : public CAIssuer
-{
-public:
-    CACertificate() : m_pCA(0) {}
-    ~CACertificate() {}
-    CACertificate(CAIssuer* pCA)
-    {
-        SetCA(pCA);
-    }
-    int SetCA(CAIssuer* pCA)
-    {
-        m_pCA=pCA;
-        return CA_SUCCESS;
-    }
-    virtual int MakeKEY(string filename,
-                RSABIT bits);
-    virtual int MakeCSR(string filename,
-                string subj);
-    virtual int MakeCRT(string filename);
+  class CACertificate : public CAIssuer
+  {
+  public:
+      CACertificate() : m_pCA(0) {}
+      ~CACertificate() {}
+      CACertificate(CAIssuer* pCA)
+      {
+          SetCA(pCA);
+      }
+      int SetCA(CAIssuer* pCA)
+      {
+          m_pCA=pCA;
+          return CA_SUCCESS;
+      }
+      virtual int MakeKEY(string filename,
+                  RSABIT bits);
+      virtual int MakeCSR(string filename,
+                  string subj);
+      virtual int MakeCRT(string filename);
 
-private:
-    CAIssuer* m_pCA;
+  private:
+      CAIssuer* m_pCA;
+  };
 };
 
 #endif // __CORETRUST_CERTIFICATE_ISSUER__

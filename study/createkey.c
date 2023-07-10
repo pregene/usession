@@ -2,11 +2,11 @@
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
 
-bool generate_key()
+int generate_key()
 {
 	int				ret = 0;
 	RSA				*r = NULL;
-	BIGNUM			*bne = NULL;
+	BIGNUM		*bne = NULL;
 	BIO				*bp_public = NULL, *bp_private = NULL;
 
 	int				bits = 2048;
@@ -47,7 +47,7 @@ free_all:
 	return (ret == 1);
 }
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
 	generate_key();
         return 0;
