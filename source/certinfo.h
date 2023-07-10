@@ -89,12 +89,7 @@ namespace CTCERT
       }
       return 0;
     }
-    /*!
-      @brief CSR 문자열을 생성한다.
-      @author paul@coretrust.com
-      @date 2023-07-10
-    */
-    string Make(string nation,
+    void Set(string nation,
                 string state,
                 string city,
                 string organ,
@@ -111,14 +106,21 @@ namespace CTCERT
       m_name=name;
       m_email=email;
       if (!uid.empty()) m_uid = uid;
-
-      int bufferlen=nation.length();
-      bufferlen += state.length();
-      bufferlen += city.length();
-      bufferlen += organ.length();
-      bufferlen += unit.length();
-      bufferlen += name.length();
-      bufferlen += email.length();
+    }  
+    /*!
+      @brief CSR 문자열을 생성한다.
+      @author paul@coretrust.com
+      @date 2023-07-10
+    */
+    string Make()
+    {
+      int bufferlen=m_nation.length();
+      bufferlen += m_state.length();
+      bufferlen += m_city.length();
+      bufferlen += m_organ.length();
+      bufferlen += m_unit.length();
+      bufferlen += m_name.length();
+      bufferlen += m_email.length();
       bufferlen += m_uid.length();
       bufferlen += 200;
       m_certline.clear();
@@ -127,24 +129,24 @@ namespace CTCERT
       if (uid.empty())
       sprintf((char*)m_certline.c_str(),
               "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s",
-              nation.c_str(),
-              state.c_str(),
-              city.c_str(),
-              organ.c_str(),
-              unit.c_str(),
-              name.c_str(),
-              email.c_str());
+              m_nation.c_str(),
+              m_state.c_str(),
+              m_city.c_str(),
+              m_organ.c_str(),
+              m_unit.c_str(),
+              m_name.c_str(),
+              m_email.c_str());
       else
       sprintf((char*)m_certline.c_str(),
               "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s/UID=%s",
-              nation.c_str(),
-              state.c_str(),
-              city.c_str(),
-              organ.c_str(),
-              unit.c_str(),
-              name.c_str(),
-              email.c_str(),
-              uid.c_str());
+              m_nation.c_str(),
+              m_state.c_str(),
+              m_city.c_str(),
+              m_organ.c_str(),
+              m_unit.c_str(),
+              m_name.c_str(),
+              m_email.c_str(),
+              m_uid.c_str());
       return m_certline;
     }
 
