@@ -1,10 +1,15 @@
 #include "certinfo.h"
 
+using namespace CTCERT;
 
 int main(int argc, char* argv[])
 {
   string cert_line="/C=KO/ST=Seoul/L=Seoul/O=CoreTrust, Inc./OU=ca.eurycrypt.com/CN=ca.eurycrypt.com/emailAddress=biz@coretrust.com";
   CACertInfo info;
+
+  cout << "Certificate Information Parser " << VERSION_INFO << ", ";
+  cout << "(C)Copyrihgt 2023, CoreTrust, Inc. ";
+  cout << "Build Number " << BUILDNO_INFO << endl;
 
   int status=info.ParseString(cert_line);
   printf("status=%d\n", status);
