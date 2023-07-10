@@ -126,7 +126,7 @@ namespace CTCERT
       m_certline.clear();
       m_certline.resize(bufferlen);
 
-      if (uid.empty())
+      if (m_uid.empty())
       sprintf((char*)m_certline.c_str(),
               "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s",
               m_nation.c_str(),

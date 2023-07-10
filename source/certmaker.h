@@ -26,7 +26,7 @@ namespace CTCERT
                   RSABIT bits);
       virtual int MakeCSR(string filename,
                   string subj);
-      virtual int MakeCRT(string filename);
+      virtual int MakeCRT(string filename, int days);
       string GetKEY() {return m_key;}
       string GetCSR() {return m_csr;}
       string GetCRT() {return m_crt;}
@@ -46,7 +46,7 @@ namespace CTCERT
           return CA_SUCCESS;
       }
 
-  private:
+  protected:
       string m_key;
       string m_csr;
       string m_crt;
@@ -67,11 +67,7 @@ namespace CTCERT
           m_pCA=pCA;
           return CA_SUCCESS;
       }
-      virtual int MakeKEY(string filename,
-                  RSABIT bits);
-      virtual int MakeCSR(string filename,
-                  string subj);
-      virtual int MakeCRT(string filename);
+      virtual int MakeCRT(string filename, int days);
 
   private:
       CAIssuer* m_pCA;

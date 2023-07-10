@@ -61,10 +61,89 @@ int CAIssuer::MakeCSR(string filename, string subj)
   		  info.Make().c_str());
   		  
   printf("cmd: %s\n", cmd.c_str()); 
-  		  
+  FILE* file = popen(cmd.c_str(), "r");
+  if (file)
+  {
+    char buffer[1024];
+    while (fgets(buffer, 1024, file))
+    {
+      cout << buffer;
+    }
+    cout << endl;
+    pclose(file);
+  }  
   return 0;
 }
-int CAIssuer::MakeCRT(string filename)
+int CAIssuer::MakeCRT(string filename, int days)
 {
+  /*
+    openssl X509 -req -days 99999 
+    -extensions v3_ca -set_serial 103 
+    -in root.csr -signkey root.key 
+    -out root.crt
+  */
+  string cmd;
+  cmd.resize(2048);
+  m_crt = filename;
+  sprintf((char*) cmd.c_str(), 
+		  "openssl x509 -req -days %d "
+		  "-extensions v3_ca -set_serial 103 "
+		  "-in \"%s\" -signkey \"%s\" "
+		  "-out \"%s\" ",
+		  days,
+		  m_csr.c_str(),
+		  m_key.c_str(),
+		  m_crt.c_str());
+  FILE* file = popen(cmd.c_str(), "r");
+  if (file)
+  {
+    char buffer[1024];
+    while (fgets(buffer, 1024, file))
+    {
+      cout << buffer;
+    }
+    cout << endl;
+    pclose(file);
+  }
+  return 0;
+}
+
+/*
+ openssl x509 -req 
+ -in CT_client.csr 
+ -CA CT_root.crt 
+ -CAkey CT_root.key 
+ -CAcreateserial 
+ -out CT_client.crt
+*/
+
+int CACertificate::MakeCRT(string filename, int days)
+{
+  string cmd;
+  cmd.resize(2048);
+  if (!m_pCA || m_pCA->GetKEY().empty() || m_pCA->GetCRT().empty())
+    return CA_FAIL;
+  m_crt = filename;
+  sprintf((char*) cmd.c_str(), "openssl x509 -req -days %d -extensions v3_user "
+		  	       "-in \"%s\" -CA \"%s\" "
+			       "-CAkey \"%s\" -CAcreateserial "
+			       "-out \"%s\" ",
+			       days,
+			       m_csr.c_str(),
+			       m_pCA->GetCRT().c_str(),
+			       m_pCA->GetKEY().c_str(),
+			       m_crt.c_str());
+  cout << cmd << endl;
+  FILE* file = popen(cmd.c_str(), "r");
+  if (file)
+  {
+    char buffer[1024];
+    while (fgets(buffer, 1024, file))
+    {
+      cout << buffer;
+    }
+    cout << endl;
+    pclose(file);
+  }
   return 0;
 }

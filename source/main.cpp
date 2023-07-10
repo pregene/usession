@@ -27,5 +27,14 @@ int main(int argc, char* argv[])
 
   CAIssuer issue;
   issue.MakeKEY("root.key", CA_RSA_2048);
+  issue.MakeCSR("root.csr", info.Make());
+  issue.MakeCRT("root.crt", 9999);
+  CACertificate node(&issue);
+  node.MakeKEY("node.key", CA_RSA_2048);
+  info.Set("KO", "Seoul", "Seoul", "CoreTrust, Inc.", 
+		"node.eurycrypt.com", "node.eurycrypt.com",
+		"biz@coretrust.com", "");
+  node.MakeCSR("node.csr", info.Make());
+  node.MakeCRT("node.crt", 9999);
   return 0;
 }

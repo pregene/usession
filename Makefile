@@ -26,3 +26,6 @@ all:
 clean:
 	rm -f bin/$(EXEC)
 	rm -f bin/createkey
+	rm node.*
+	rm root.*
+
