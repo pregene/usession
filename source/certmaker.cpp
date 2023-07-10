@@ -30,6 +30,8 @@ int CAIssuer::MakeKEY(string filename, RSABIT bits)
 	bp_private = BIO_new_file(filename.c_str(), "w+");
 	ret = PEM_write_bio_RSAPrivateKey(bp_private, r, NULL, NULL, 0, NULL, NULL);
 
+	m_key=filename;
+	
 	// 4. free
 free_all:
 	BIO_free_all(bp_private);
@@ -48,6 +50,18 @@ int CAIssuer::MakeCSR(string filename, string subj)
           /emailAddress=paul@coretrust.com
           /UID=192.168.100.209"
   */
+  string cmd;
+  cmd.resize(2048);
+  m_csr = filename;
+  sprintf((char*) cmd.c_str(),
+  		  "openssl req -new -key \"%s\" "
+  		  "-out \"%s\" -subj \"%s\" ",
+  		  m_key.c_str(),
+  		  m_csr.c_str(),
+  		  info.Make().c_str());
+  		  
+  printf("cmd: %s\n", cmd.c_str()); 
+  		  
   return 0;
 }
 int CAIssuer::MakeCRT(string filename)
