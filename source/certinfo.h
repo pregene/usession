@@ -31,6 +31,10 @@ namespace CTCERT
       @date 2023-07-10
     */
     CACertInfo() {}
+    CACertInfo(string subj)
+    {
+      ParseString(subj);
+    }
     /*!
       @brief Subject 또는 Issuer의 CSR의 정보를 분석하거나 문자열 생성하는 클래스의 소멸자
       @author paul@coretrust.com
@@ -80,6 +84,7 @@ namespace CTCERT
           if (*i == "OU") m_unit=*(++i);
           if (*i == "CN") m_name=*(++i);
           if (*i == "emailAddress") m_email=*(++i);
+          if (*i == "UID") m_uid=*(++i);
         }
       }
       return 0;
@@ -95,7 +100,8 @@ namespace CTCERT
                 string organ,
                 string unit,
                 string name,
-                string email)
+                string email,
+                string uid)
     {
       m_nation=nation;
       m_state=state;
@@ -104,6 +110,7 @@ namespace CTCERT
       m_unit=unit;
       m_name=name;
       m_email=email;
+      if (!uid.empty()) m_uid = uid;
 
       int bufferlen=nation.length();
       bufferlen += state.length();
@@ -112,10 +119,12 @@ namespace CTCERT
       bufferlen += unit.length();
       bufferlen += name.length();
       bufferlen += email.length();
+      bufferlen += m_uid.length();
       bufferlen += 200;
       m_certline.clear();
       m_certline.resize(bufferlen);
 
+      if (uid.empty())
       sprintf((char*)m_certline.c_str(),
               "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s",
               nation.c_str(),
@@ -125,6 +134,17 @@ namespace CTCERT
               unit.c_str(),
               name.c_str(),
               email.c_str());
+      else
+      sprintf((char*)m_certline.c_str(),
+              "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s/UID=%s",
+              nation.c_str(),
+              state.c_str(),
+              city.c_str(),
+              organ.c_str(),
+              unit.c_str(),
+              name.c_str(),
+              email.c_str(),
+              uid.c_str());
       return m_certline;
     }
 
@@ -136,6 +156,7 @@ namespace CTCERT
     string m_unit;   // /OU=
     string m_name;   // /CN=
     string m_email;  // /emailAddress
+    string m_uid;
   };
 };
 

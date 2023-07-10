@@ -39,6 +39,15 @@ free_all:
 }
 int CAIssuer::MakeCSR(string filename, string subj)
 {
+  CACertInfo info(subj);
+  /*
+  openssl req -new -key root.key
+          -out root.csr
+          -subj "/C=KO/ST=Seoul/L=Seoul/O=CoreTrust, Inc.
+          /OU=eurycrypt.com/CN=paul
+          /emailAddress=paul@coretrust.com
+          /UID=192.168.100.209"
+  */
   return 0;
 }
 int CAIssuer::MakeCRT(string filename)
