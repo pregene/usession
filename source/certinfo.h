@@ -23,10 +23,10 @@ public:
     while (getline(ss, buff, '='))
     {
       arrs.push_back(buff);
-    } 
+    }
     return arrs;
-  } 
-  
+  }
+
   int ParseString(string cert_line)
   {
     m_certline = cert_line;
@@ -34,10 +34,12 @@ public:
     string el;
     while (getline(ss, el, '/'))
     {
+      if (el.empty())
+        continue;
       vector<string> arr=ParseElement(el);
       if (!arr.empty())
       {
-        auto i=arr.begin(); ++i;
+        auto i=arr.begin(); //++i;
         if (*i == "C")  m_nation=*(++i);
         if (*i == "ST") m_state=*(++i);
         if (*i == "L")  m_city=*(++i);
@@ -64,7 +66,7 @@ public:
     m_unit=unit;
     m_name=name;
     m_email=email;
-    
+
     int bufferlen=nation.length();
     bufferlen += state.length();
     bufferlen += city.length();
@@ -75,7 +77,7 @@ public:
     bufferlen += 200;
     m_certline.clear();
     m_certline.resize(bufferlen);
-    
+
     sprintf((char*)m_certline.c_str(),
             "/C=%s/ST=%s/L=%s/O=%s/OU=%s/CN=%s/emailAddress=%s",
             nation.c_str(),
@@ -85,9 +87,9 @@ public:
             unit.c_str(),
             name.c_str(),
             email.c_str());
-    return m_certline; 
-  } 
-  
+    return m_certline;
+  }
+
   string m_certline;
   string m_nation; // /C=
   string m_state;  // /ST=
@@ -98,4 +100,4 @@ public:
   string m_email;  // /emailAddress
 };
 
-#end // __CORETRUST_CERTIFICATE_INFO__
+#endif // __CORETRUST_CERTIFICATE_INFO__

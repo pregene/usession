@@ -3,14 +3,20 @@
 
 int main(int argc, char* argv[])
 {
-  string cert_line="/C=KR/ST=Seoul/L=Seocho-gu/O=OSCI/OU=Cloud Migration/CN=dhkim.com";
+  string cert_line="/C=KO/ST=Seoul/L=Seoul/O=CoreTrust, Inc./OU=ca.eurycrypt.com/CN=ca.eurycrypt.com/emailAddress=biz@coretrust.com";
   CACertInfo info;
-  
+
   int status=info.ParseString(cert_line);
   printf("status=%d\n", status);
   if (status == 0)
   {
-    printf("Country: %s\n", info.m_nation.c_str());
-  } 
+    printf("Country: %s\n",       info.m_nation.c_str());
+    printf("State: %s\n",         info.m_state.c_str());
+    printf("Local: %s\n",         info.m_city.c_str());
+    printf("Organization: %s\n",  info.m_organ.c_str());
+    printf("Unit: %s\n",          info.m_unit.c_str());
+    printf("Common: %s\n",        info.m_name.c_str());
+    printf("Email: %s\n",         info.m_email.c_str());
+  }
   return 0;
-} 
+}
