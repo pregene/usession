@@ -23,7 +23,7 @@ public:
     virtual int MakeKEY(string filename,
                 RSABIT bits);
     virtual int MakeCSR(string filename,
-                string args);
+                string subj);
     virtual int MakeCRT(string filename);
     string GetKEY() {return m_key;}
     string GetCSR() {return m_csr;}
@@ -68,7 +68,7 @@ public:
     virtual int MakeKEY(string filename,
                 RSABIT bits);
     virtual int MakeCSR(string filename,
-                string args);
+                string subj);
     virtual int MakeCRT(string filename);
 
 private:
